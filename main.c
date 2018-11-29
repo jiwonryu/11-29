@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "keyword.c"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 int is_whitespace(char c)
@@ -21,13 +22,15 @@ int fget_word(FILE* fp, char* word)
 	char c;
 	int cnt;
 	
-	while ((c=fgetc(fp)) != EOF){
-		if (is_whitespace(c) == 0){
+	while ((c=fgetc(fp)) != EOF){ // 1문자 받음 
+		if (is_whitespace(c) == 0){ // 유의미한 문자이면 나감 
 			break;
 		}
-		if (c == EOF){
+		if (c == EOF){ // 최초 읽은 문자가 마지막일때 
 			return 0;
 		}
+		
+		//본격적으로 단어를 한글자씩 읽음 
 		
 		cnt = 0;
 		word[cnt++]= c;
@@ -46,7 +49,7 @@ int fget_word(FILE* fp, char* word)
 	return cnt;
 }
 int main(int argc, char *argv[]) {
-	FILE* fp;
+	FILE *fp;
 	char name[100];
 	char word[100];
 	
@@ -64,9 +67,10 @@ int main(int argc, char *argv[]) {
 	while (fget_word(fp, word) != 0)
 	{
 		//word processing
-		printf("%s\n",word); //test code
+		count_word(word);
 	}	
-	printf("%c\n", fgetc(fp));
+	print_word();
+	
 	//fclose
 	fclose(fp);
 		
