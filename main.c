@@ -26,9 +26,6 @@ int fget_word(FILE* fp, char* word)
 		if (is_whitespace(c) == 0){ // 유의미한 문자이면 나감 
 			break;
 		}
-		if (c == EOF){ // 최초 읽은 문자가 마지막일때 
-			return 0;
-		}
 		
 		//본격적으로 단어를 한글자씩 읽음 
 		
@@ -36,7 +33,10 @@ int fget_word(FILE* fp, char* word)
 		word[cnt++]= c;
 		word[cnt]= '\0';
 	}
-	
+		if (c == EOF){ // 최초 읽은 문자가 마지막일때 
+			return 0;
+		}
+		
 	while((word[cnt]=fgetc(fp)) != EOF){
 		if(is_whitespace(word[cnt]) == 1)
 		{
